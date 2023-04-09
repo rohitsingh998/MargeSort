@@ -1,0 +1,61 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+void merge(vector<int>&arr,int s,int mid,int e){
+	// define length of both arrray
+	int n1=mid-s+1;
+	int n2=e-mid;
+	//define both array left and right 
+	vector<int>l(n1);
+	vector<int>r(n2);
+	//pass the value on next subarray
+	for(int i=0;i<n1;i++){
+		l[i]=arr[s+i];}
+	for(int j=0;j<n2;j++){
+		r[j]=arr[mid+1+j];}
+	//compare the all element of both array
+	int i=0;
+	int j=0;
+	int k=s;
+	// if both array's' length is same
+	while(i<n1 && j<n2){
+		if(l[i]<=r[j]){
+			arr[k]=l[i];
+			i++;}
+		else{
+			arr[k]=r[j];
+			j++;}
+			k++;
+		}
+	//if length is diffrent
+	while(i<n1){
+		arr[k]=l[i];
+		i++;
+		k++;}
+	while(j<n2){
+		arr[k]=r[j];
+		j++;
+		k++;}
+	
+}
+void mergeSort(vector<int>&arr,int s,int e){
+	//base case
+	if(s>=e){
+		return;}
+	//define middle
+	int mid=s+(e-s)/2;
+	//left array
+	mergeSort(arr,s,mid);
+	//right array
+	mergeSort(arr,mid+1,e);
+	//marge both array
+	merge(arr,s,mid,e);
+	}
+int main(){
+	vector<int>arr={9,6,3,1,2,4,6,8,5};
+	mergeSort(arr,0,arr.size()-1);
+	//print the list
+	for(int i=0;i<arr.size()-1;i++){
+		cout<<arr[i]<<" ";}
+		cout<<endl;
+	}
